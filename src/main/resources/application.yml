@@ -37,7 +37,8 @@ logging:
     org.hibernate.orm.jdbc.extract: TRACE
     org.springframework.transaction.interceptor: TRACE
 
-
+springdoc:
+  default-produces-media-type: application/json;charset=UTF-8
 
 custom:
   jwt:

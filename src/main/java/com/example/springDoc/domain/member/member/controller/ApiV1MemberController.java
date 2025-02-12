@@ -7,6 +7,7 @@ import com.example.springDoc.domain.post.post.service.PostService;
 import com.example.springDoc.global.Rq;
 import com.example.springDoc.global.dto.RsData;
 import com.example.springDoc.global.exception.ServiceException;
+import io.swagger.v3.oas.annotations.Operation;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
@@ -24,7 +25,8 @@ public class ApiV1MemberController {
 
     record JoinReqBody(@NotBlank String username, @NotBlank String password, @NotBlank String nickname) {}
 
-    @PostMapping("/join")
+    @Operation(summary = "회원가입")
+    @PostMapping(value = "/join")
     public RsData<MemberDto> join(@RequestBody @Valid JoinReqBody reqBody) {
 
         memberService.findByUsername(reqBody.username())
@@ -46,6 +48,7 @@ public class ApiV1MemberController {
 
     record LoginResBody(MemberDto item, String apiKey, String accessToken) {}
 
+    @Operation(summary = "로그인", description = "로그인 성공 시 apiKey와 AccessToken 반환. 쿠키로도 반환")
     @PostMapping("/login")
     public RsData<LoginResBody> login(@RequestBody @Valid LoginReqBody reqBody, HttpServletResponse response) {
 
@@ -73,6 +76,7 @@ public class ApiV1MemberController {
         );
     }
 
+    @Operation(summary = "로그아웃")
     @DeleteMapping("/logout")
     public RsData<Void> logout() {
 
@@ -82,6 +86,7 @@ public class ApiV1MemberController {
         return new RsData<>("200-1", "로그아웃 되었습니다.");
     }
 
+    @Operation(summary = "내 정보 조회")
     @GetMapping("/me")
     public RsData<MemberDto> me() {
 
