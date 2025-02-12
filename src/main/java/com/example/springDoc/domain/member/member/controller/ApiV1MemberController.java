@@ -8,12 +8,16 @@ import com.example.springDoc.global.Rq;
 import com.example.springDoc.global.dto.RsData;
 import com.example.springDoc.global.exception.ServiceException;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+@SecurityRequirement(name = "bearerAuth")
+@Tag(name = "ApiV1MemberController", description = "회원 API")
 @RestController
 @RequestMapping("/api/v1/members")
 @RequiredArgsConstructor

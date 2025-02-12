@@ -9,6 +9,7 @@ import com.example.springDoc.global.Rq;
 import com.example.springDoc.global.dto.RsData;
 import com.example.springDoc.global.exception.ServiceException;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@SecurityRequirement(name = "bearerAuth")
 @Tag(name = "ApiV1CommentController", description = "댓글 API")
 @RestController
 @RequiredArgsConstructor
@@ -100,6 +102,7 @@ public class ApiV1CommentController {
     }
 
 
+    @Operation(summary = "댓글 삭제", description = "게시글의 댓글을 삭제합니다.")
     @DeleteMapping("{id}")
     @Transactional
     public RsData<Void> delete(@PathVariable long postId, @PathVariable long id) {
