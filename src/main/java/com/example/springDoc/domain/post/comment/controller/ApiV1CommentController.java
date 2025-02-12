@@ -8,12 +8,15 @@ import com.example.springDoc.domain.post.post.service.PostService;
 import com.example.springDoc.global.Rq;
 import com.example.springDoc.global.dto.RsData;
 import com.example.springDoc.global.exception.ServiceException;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@Tag(name = "ApiV1CommentController", description = "댓글 API")
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/posts/{postId}/comments")
@@ -22,6 +25,7 @@ public class ApiV1CommentController {
     private final PostService postService;
     private final Rq rq;
 
+    @Operation(summary = "댓글 목록", description = "게시글의 댓글 목록을 가져옵니다.")
     @GetMapping
     @Transactional(readOnly = true)
     public List<CommentDto> getItems(@PathVariable long postId) {
@@ -36,6 +40,7 @@ public class ApiV1CommentController {
                 .toList();
     }
 
+    @Operation(summary = "댓글 상세", description = "게시글의 댓글 상세 정보를 가져옵니다.")
     @GetMapping("{id}")
     @Transactional(readOnly = true)
     public CommentDto getItem(@PathVariable long postId, @PathVariable long id) {
@@ -53,6 +58,7 @@ public class ApiV1CommentController {
     record WriteReqBody(String content) {
     }
 
+    @Operation(summary = "댓글 작성", description = "게시글에 댓글을 작성합니다.")
     @PostMapping
     @Transactional
     public RsData<Void> write(@PathVariable long postId, @RequestBody WriteReqBody reqBody) {
@@ -71,6 +77,7 @@ public class ApiV1CommentController {
 
     record ModifyReqBody(String content) {}
 
+    @Operation(summary = "댓글 수정", description = "게시글의 댓글을 수정합니다.")
     @PutMapping("{id}")
     @Transactional
     public RsData<Void> modify(@PathVariable long postId, @PathVariable long id, @RequestBody ModifyReqBody reqBody) {
