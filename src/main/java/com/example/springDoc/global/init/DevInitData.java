@@ -55,9 +55,13 @@ public class DevInitData {
     }
 
     public void runCmd() {
-        // 실행할 터미널 명령어 (예: ls -l 또는 dir)
-        List<String> command = List.of("ls", "-l"); // macOS/Linux
-//        List<String> command = List.of("cmd.exe", "/c", "npx --package typescript --package openapi-typescript --package punycode openapi-typescript apiV1.json -o schema.d.ts"); // Windows
+        List<String> command = List.of(
+                "npx", "--package", "typescript",
+                "--package", "openapi-typescript",
+                "--package", "punycode",
+                "openapi-typescript", "apiV1.json", "-o", "../frontend/src/lib/backend/apiV1/schema.d.ts"
+        );
+
         try {
             ProcessBuilder processBuilder = new ProcessBuilder(command);
             processBuilder.redirectErrorStream(true); // 표준 에러를 표준 출력과 합침
