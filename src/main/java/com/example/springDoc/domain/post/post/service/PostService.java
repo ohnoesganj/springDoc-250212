@@ -1,6 +1,7 @@
 package com.example.springDoc.domain.post.post.service;
 
 import com.example.springDoc.domain.member.member.entity.Member;
+import com.example.springDoc.domain.post.post.controller.SearchKeywordType;
 import com.example.springDoc.domain.post.post.entity.Post;
 import com.example.springDoc.domain.post.post.repository.PostRepository;
 import lombok.RequiredArgsConstructor;
@@ -62,12 +63,12 @@ public class PostService {
         return postRepository.findTopByOrderByIdDesc();
     }
 
-    public Page<Post> getListedItems(int page, int pageSize, String keywordType, String keyword) {
+    public Page<Post> getListedItems(int page, int pageSize, SearchKeywordType keywordType, String keyword) {
         PageRequest pageRequest = PageRequest.of(page - 1, pageSize);
 
         String likeKeyword = "%" + keyword + "%";
 
-        if(keywordType.equals("content")) {
+        if(keywordType.CONTENT == keywordType) {
             return postRepository.findByListedAndContentLike(true, likeKeyword, pageRequest);
         }
 
@@ -75,12 +76,12 @@ public class PostService {
         return postRepository.findByListedAndTitleLike(true, likeKeyword, pageRequest);
     }
 
-    public Page<Post> getMines(Member author, int page, int pageSize, String keywordType, String keyword) {
+    public Page<Post> getMines(Member author, int page, int pageSize, SearchKeywordType keywordType, String keyword) {
 
         PageRequest pageRequest = PageRequest.of(page - 1, pageSize);
         String likeKeyword = "%" + keyword + "%";
 
-        if(keywordType.equals("content")) {
+        if(keywordType.CONTENT == keywordType) {
             return postRepository.findByAuthorAndContentLike(author, likeKeyword, pageRequest);
         }
 

@@ -3,6 +3,7 @@ package com.example.springDoc;
 import com.example.springDoc.domain.member.member.entity.Member;
 import com.example.springDoc.domain.member.member.service.MemberService;
 import com.example.springDoc.domain.post.post.controller.ApiV1PostController;
+import com.example.springDoc.domain.post.post.controller.SearchKeywordType;
 import com.example.springDoc.domain.post.post.entity.Post;
 import com.example.springDoc.domain.post.post.service.PostService;
 import org.junit.jupiter.api.BeforeEach;
@@ -109,7 +110,7 @@ public class ApiV1PostControllerTest {
                 .andExpect(jsonPath("$.data.totalPages").isNumber()); // 전체 페이지 개수
 
 
-        Page<Post> postPage = postService.getListedItems(1, 3, "title", "");
+        Page<Post> postPage = postService.getListedItems(1, 3, SearchKeywordType.TITLE, "");
         List<Post> posts = postPage.getContent();
         checkPosts(posts, resultActions);
 
@@ -144,7 +145,7 @@ public class ApiV1PostControllerTest {
                 .andExpect(jsonPath("$.data.totalPages").value(3))
                 .andExpect(jsonPath("$.data.totalItems").value(7));
 
-        Page<Post> postPage = postService.getListedItems(page, pageSize, keywordType, keyword);
+        Page<Post> postPage = postService.getListedItems(page, pageSize, SearchKeywordType.TITLE, keyword);
         List<Post> posts = postPage.getContent();
         checkPosts(posts, resultActions);
 
@@ -179,7 +180,7 @@ public class ApiV1PostControllerTest {
                 .andExpect(jsonPath("$.data.totalPages").value(3))
                 .andExpect(jsonPath("$.data.totalItems").value(7));
 
-        Page<Post> postPage = postService.getListedItems(page, pageSize, keywordType, keyword);
+        Page<Post> postPage = postService.getListedItems(page, pageSize, SearchKeywordType.TITLE, keyword);
         List<Post> posts = postPage.getContent();
         checkPosts(posts, resultActions);
 
@@ -216,7 +217,7 @@ public class ApiV1PostControllerTest {
                 .andExpect(jsonPath("$.data.totalItems").value(4));
 
 
-        Page<Post> postPage = postService.getMines(loginedMember, page, pageSize, keywordType, keyword);
+        Page<Post> postPage = postService.getMines(loginedMember, page, pageSize, SearchKeywordType.TITLE, keyword);
         List<Post> posts = postPage.getContent();
         checkPosts(posts, resultActions);
 
